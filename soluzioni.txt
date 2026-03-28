@@ -1,0 +1,45 @@
+crypto_05 -> su cyberchef impostato FROM HEX, poi XOR con chiave binaria ad 8 bit (o più facilmente con un hex da 00 fino a ff), poi DECODE TEXT per ottenere il testo, provato varie chiavi fino ad ottenere una plausibile flag 
+		per 20 (hex), cioè 32 (dec), cioè 100000 (bin), cioè lo spazio (in text).
+
+crypto1_04 -> byte to byte attack, programma python che invia continuamente flag di lettere iniziali casuali e alla fine completata con pezzi della flag man mano che sono trovati. Quando il programma va in timeout basta
+		inizializzare la flag al valore ottenuto fino al momento del timeout, e inizializzare m con la parte della flag trovata.
+
+crypto1_05 -> ho installato da python il tool mtp con pipx install mpt, poi gli ho passato il file della challenge e ho completato a mano le lettere che 
+		mancavano a seguito dell'analisi del file da parte del tool.
+
+crypto1_06 -> ho notato che quando si digita il carattere corretto il cycle è pari aumentato di 300 rispetto alla lettera inserita, quindi si provano tutte le lettere controllando quando il cycle aumenta di più di 300 rispetto alla
+		ultima lettera trovata
+
+crypto2_02 -> poiché n è piccolo quello che si fa è trovare p e q, poi si calcola il totiente (ossia phi), quindi si calcola d come inverso modulare di e
+		modulo n, quindi si eleva ogni carattere di c a d e si fa modulo n; unendo tutti i caratteri si ottiene la flag.
+
+crypto2_03 -> avendo e,n posso cifrare, quindi scorro tutti gli elementi di c e per ognuno vado a cifrare tutti caratteri printabili, confrontando il 
+		numero presente con quello appena cifrato.
+
+crypto2_04 -> essendo e molto piccolo e n molto grande, allora posso fare direttamente la radice e-esima di c ed ottenere m, che però è binario, quindi...
+
+web1_05 -> bisogna effettuare una richiesta get all'url: "http://ssrf3.challs.cyberchallenge.it/?url=http%3A%2F%2Fssrf3.challs.cyberchallenge.it%2Fget_flag.php". Sono tre livelli, nel primo è sufficiente digitare 
+		"http://localhost/get_flag.php" per ingannare il sistema, nel secondo invece sono bloccati localhost e 127.0.0.1, ma è sufficiente usare 127.*.*.* oppure 0.0.0.0 oppure qualsiasi altro dominio che reindirizza a
+		localhost (cercare online). Nel terzo, invece, è bloccato tutto, quindi quello che si fa è usare un redirect da parte di un altro url. Si crea un app server web con la libreria flask di python, per reindirizzare
+		il mio localhost porta 5000 sull'url proibito. A questo punto, bisogna esporre il mio server locale sul web, quindi si usa ssh con localhost.run per far ciò. Resta solo che passare l'url fornito dalla connessione
+		ssh sul sito della challenge e prendere la flag. Un'alternativa in questo caso era quella di usare il tool online tinyurl per dare all'url della flag un altro url.
+
+web2_01 -> livello 1 è stato sufficiente sfruttare il non controllo sulla variabile inserita per generare un OR TRUE sulla condizione, per il livello due ho usato l'unione per eseguire una mia query che però doveva avere come risultato
+		lo stesso numero di colonne di quella prima, cioè 6, in particolare sono andato a vedere tutte le colonne dell'information schema, ho visto che esisteva una colonna di nome "flag" e ho richiesto la query per vederla.
+
+web_11 -> si fa una richiesta post all'url del login per inviare username e password nel body con json. Si ottiene, quindi, un token di sessione che useremo in tutte le prossime richieste. A questo punto si ottiene il primo CSRF e si
+		invia una richiesta post all'url di get_piece per prendere la prima parte della flag, quindi dalla richiesta si estrae dal json sia la parte della chiave che il token CSRF per la successiva richiesta; ripetendo questo
+		procedimento più volte usando ogni volta il token CSRF della volta precedente si riesce a ricostruire tutta la chiave. Ho notato che funziona anche se ad ogni iterazione si fa di nuovo il login e si chiede la parte
+		della chiave, dunque senza usare il CSRF della seconda richiesta, ma usando sempre quello che proviene della richiesta post del login.
+
+web_12 -> si utilizza la classe BeautifulSoup per cercare tramite il metodo find_all tutti i paragrafi presenti nella pagina.
+
+web_13 -> come web 12 ma ora uso find_all per trovare tutti gli span.
+
+web_14 -> utilizzo la classe Comment di bs4 per trovare tutti commenti in find_all, poi parso la stringa con il regex per trovare la flag. 
+
+web_15 -> estraggo il contenuto della pagine, poi rilevo tutti i tag <script> e <link>, dei quali prendo il valore degli attributi "src" e "href". A questo punto apro tutti i file e cerco una corrispondenza
+		con regular espression 'flag{.*}' e lo stampo a video.
+
+web_16 -> in un vettore di url metto l'url della prima pagina, poi per tutti gli url estraggo dalla pagina tutti gli <a>, quindi aggiungo i link alla lista di url. Tengo una lista degli url visitati per non cadere in ricorsioni, e
+		prima di visitare controllo se lo ho già visitato. Per ogni pagina controllo prima se è presente la flag tramite la regular expression; in caso negativo passo a vedere tutte le sue sottopagine.
