@@ -1,0 +1,51 @@
+stampa la flag ma lentamente
+
+analizziamo su ghidra, vediamo che non c'è il main, ma una funzione entry, che poi chiama la funzione main che stampa la flag
+
+vediamo che ogni carattere aspetta 5 secondi al primo e poi ogni volta il doppio, quindi 10, 20, ecc.
+
+quello che dobbiamo fare è fare in modo che il programma non sia così lento nello stampare.
+
+
+
+vari approcci:
+
+1 - patchare il binario, modificando i secondi da 500000 a 0, facendo doppio click poi a sinistra mettere 0x0 di fianco a EAX EAX, poi riesporto il binario e lo eseguo:
+
+    gdb slow_printer
+    b *0x4011d6
+    b *0x4011fe
+    delete 1
+    commands 2
+      set $rdi = 0
+      pi gdb.execute("continue")
+      end 
+    r
+
+
+2 - arrivo alla funzione poi faccio un salto del pc pari a 5 con "set $pc = $pc +5":
+
+    gdb slow_printer
+    b *0x4011d6
+    b *0x4011fe
+    delete 1
+    commands 2
+      set $pc = $pc +5
+      pi gdb.execute("continue")
+      end 
+    r
+
+
+3 - modificare la funzione sleep per fargli avere un comportamento differente. si può fare su ghidra ed esportare il binario, ma conviene farlo su python come specificato al punto 4. 
+
+4 - patchare il binario con pwntools: metto al posto di sleep l'istruzione "nope", che ha codice 0x90. codice nel file slow_printer.py, eseguibile patchato nel file ./slow_printer_patch
+
+
+
+
+
+
+
+commands si usa per eseguire comandi una volta fermati su un breakpoint
+
+

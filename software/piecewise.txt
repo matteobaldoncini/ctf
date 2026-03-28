@@ -1,0 +1,6 @@
+connettersi al sever della challenge tramite il comando:
+    nc piecewise.challs.cyberchallenge.it 9110
+
+script python al file piecewise.py, in cui quello che si fa è:
+  
+  1. 

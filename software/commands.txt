@@ -1,0 +1,11 @@
+readelf -> -a, -e, -s
+gdb ->
+nm ->
+objdump -> -d -M intel
+
+
+
+***** acrostic *****
+xor rdi, rdi -> fa lo XOR tra rdi e rdi, cioè 0, e lo mette in rdi. 
+mov eax, 0x3c -> assegna al registro eax il valore 0x3c, ossia 60.
+syscalls -> esegue la system call relativa al codice presente nel registro rax, con codice di uscita rdi; in questo caso 60 è la system call sys_exit, che non fa nulla, fa uscire con codice di errore 0.

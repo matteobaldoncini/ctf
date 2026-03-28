@@ -1,0 +1,29 @@
+da objdump ci appuntiamo:
+
+00000000004010b0 <_start>
+00000000004011bf <main>
+000000000040127c <decode_flag>
+0000000000401196 <clear_flag>
+
+
+ce li siamo appuntati, per avere gli indirizzi, poi facendo:
+b main, vado al punto del main, poi faccio
+r, per eseguire, ora facendo
+ni, (next instruction) riusciamo ad andare all'istruzione successiva.
+si, per fare step into, cioè per andare dentro una funzione per eseguire i suoi comandi uno per uno.
+
+una volta trovato l'indirizzo della flag uso "x/x indirizzo" per vedere il byte di quell'indirizzo, poi con "x/10gx indirizzo" vedo i 10 
+
+x sta per examine, ed il formato è x/[ripetizione][formato][dimensione]
+il formato può essere x(esadecimale), d(decimale), s(string), ecc.
+la dimensione può essere b(byte), g(giant, 8 byte), ecc.
+x/s per una stringa
+
+
+x/x indirizzo, per il contenuto di memoria di quell'indirizzo
+x/10gx indirizzo, per mostrare il contenuto in memoria per 10 unità di 8 byte, partendo dall'indirizzo specificato. 
+
+
+
+
+https://x64.syscall.sh/ per vedere cose sui registri e sulle system calls.

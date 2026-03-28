@@ -1,0 +1,11 @@
+analizziamo il file su ghidra.
+
+c'è una funzione print_safe_contents, metto un breakpoint, poi eseguo, ma non è mai eseguita la funzione quindi il breakpoint non va.
+allora quello che faccio è mettere un breakpoint al main, poi eseguo.
+ora possiamo saltare dentro la funzione con il comando call, e per chiamarla ci serve il tipo di ritorno, per castare la chiamata come: "call (tipo)funzione()".
+
+altrimenti potevo usare "jump funzione"
+
+altrimenti potevo modificare il program counter (PIR) con l'indirizzo della funzione che volevo invocare
+
+
