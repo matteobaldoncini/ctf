@@ -6,3 +6,4 @@ Ci sono vari modi per bruteforzare RSA, ma solo in casi specifici:
   3. se uno dei due fattori di n è piccolo, allora si bruteforza dividendo n per numeri piccoli e si ottengono così p e q.
   4. se ci sono fattori in comune 
   5. se n viene riutilizzato e si usano due e diversi, si può utilizzare l'identità di Bezout
+  6. se e è piccolo e n è grande allora significa che l'aritmetica modulare non agisce, quindi basta fare la radice e-esima di c per ottenere m.
