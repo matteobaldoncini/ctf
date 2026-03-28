@@ -1,0 +1,8 @@
+access_control/ccit_AC.iso
+
+software/*
+!software/*.py 
+!software/*.txt 
+!software/*.c
+
+ctfenv/
