@@ -14,7 +14,10 @@ crypto1_07 -> doppio utilizzo del cifrario di Vigenere (per generare confusione)
 		avere un cifrato in cui i singoli caratteri non sono collegati al messaggio); si attacca con il meet in the middle, cioè si provano per k1
 		tutte le possibili 26^4 chiavi data dalle combinazioni di lettere minuscole, con cui si cifra m e si crea un dizionario. A questo punto,
 		si fa la stessa cosa con k2 decifrando il cifrato c, e si controlla se quanto ottenuto (presunto d) sia presente nel dizionario. In caso
-		affermativo, l'algoritmo è stato bruteforzato, dunque resta solamente da risalire alle chiavi k1 e k2 per comporre la flag.
+		affermativo, l'algoritmo è stato bruteforzato, dunque resta solamente da risalire alle chiavi k1 e k2 per comporre la flag. Si usa il
+		metodo product della libreria ipertools per produrre tutte le possibili chiavi costituite da stringhe di ascii_lowercase lunghe 4.
+
+crypto1_09 -> quello che si fa è
 
 crypto2_02 -> poiché n è piccolo quello che si fa è trovare p e q, poi si calcola il totiente (ossia phi), quindi si calcola d come inverso modulare di e
 		modulo n, quindi si eleva ogni carattere di c a d e si fa modulo n; unendo tutti i caratteri si ottiene la flag.
