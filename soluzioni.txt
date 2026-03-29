@@ -10,13 +10,21 @@ crypto1_05 -> ho installato da python il tool mtp con pipx install mpt, poi gli 
 crypto1_06 -> ho notato che quando si digita il carattere corretto il cycle è pari aumentato di 300 rispetto alla lettera inserita, quindi si provano tutte le lettere controllando quando il cycle aumenta di più di 300 rispetto alla
 		ultima lettera trovata
 
+crypto1_07 -> doppio utilizzo del cifrario di Vigenere (per generare confusione) con successiva conversione a base 64 (per generare diffusione, cioè per
+		avere un cifrato in cui i singoli caratteri non sono collegati al messaggio); si attacca con il meet in the middle, cioè si provano per k1
+		tutte le possibili 26^4 chiavi data dalle combinazioni di lettere minuscole, con cui si cifra m e si crea un dizionario. A questo punto,
+		si fa la stessa cosa con k2 decifrando il cifrato c, e si controlla se quanto ottenuto (presunto d) sia presente nel dizionario. In caso
+		affermativo, l'algoritmo è stato bruteforzato, dunque resta solamente da risalire alle chiavi k1 e k2 per comporre la flag.
+
 crypto2_02 -> poiché n è piccolo quello che si fa è trovare p e q, poi si calcola il totiente (ossia phi), quindi si calcola d come inverso modulare di e
 		modulo n, quindi si eleva ogni carattere di c a d e si fa modulo n; unendo tutti i caratteri si ottiene la flag.
 
 crypto2_03 -> avendo e,n posso cifrare, quindi scorro tutti gli elementi di c e per ognuno vado a cifrare tutti caratteri printabili, confrontando il 
 		numero presente con quello appena cifrato.
 
-crypto2_04 -> essendo e molto piccolo e n molto grande, allora posso fare direttamente la radice e-esima di c ed ottenere m, che però è binario, quindi...
+crypto2_04 -> essendo e molto piccolo ed n molto grande, allora posso fare direttamente la radice e-esima di c ed ottenere m, che però è scritto come
+		intero convertito da esadecimale; quindi, per trovare la stringa unicode devo convertire l'intero in esadecimale, ignorare i primi due
+		caratteri (ossia 0x), poi convertire in bytes e fare decode.		 
 
 web1_05 -> bisogna effettuare una richiesta get all'url: "http://ssrf3.challs.cyberchallenge.it/?url=http%3A%2F%2Fssrf3.challs.cyberchallenge.it%2Fget_flag.php". Sono tre livelli, nel primo è sufficiente digitare 
 		"http://localhost/get_flag.php" per ingannare il sistema, nel secondo invece sono bloccati localhost e 127.0.0.1, ma è sufficiente usare 127.*.*.* oppure 0.0.0.0 oppure qualsiasi altro dominio che reindirizza a
