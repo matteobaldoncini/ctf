@@ -3,7 +3,6 @@
 import string
 import base64
 import itertools
-import numpy as np
 
 
 def encrypt(clear, key):
