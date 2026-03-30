@@ -1,0 +1,7 @@
+network_09 -> viene dato il traffico dei dati e le chiavi per decifrare il traffico TLS, che cripta l'HTTP2. In questo modo riusciamo a vedere sia 
+		header che il payload in chiaro, convertito dal binario. La flag si trova in un header della richiesta GET. Senza le chiavi il traffico
+		sarebbe cifrato e il contenuto risulterebbe illeggibile. Per impostare le chiavi andare in Modifica->Preferenze->Protocols->TLS->log file
+
+network_10 -> viene inviato con una richiesta post un immagine .png, per estrarla si usa file-esporta oggetti-..., ma non ho capito come si fa, quindi
+		alla fine ho ampliato il frame specifico, poi ampliato la sezione MIME, poi Encapsulated multipart part, poi trovato la voce
+		Portable Network Graphycs, su cui ho fatto tasto destro-esporta byte del pacchetto, che ho salvato come output_10.png
