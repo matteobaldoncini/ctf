@@ -35,8 +35,10 @@ web1_05 -> bisogna effettuare una richiesta get all'url: "http://ssrf3.challs.cy
 		il mio localhost porta 5000 sull'url proibito. A questo punto, bisogna esporre il mio server locale sul web, quindi si usa ssh con localhost.run per far ciò. Resta solo che passare l'url fornito dalla connessione
 		ssh sul sito della challenge e prendere la flag. Un'alternativa in questo caso era quella di usare il tool online tinyurl per dare all'url della flag un altro url.
 
-web2_01 -> livello 1 è stato sufficiente sfruttare il non controllo sulla variabile inserita per generare un OR TRUE sulla condizione, per il livello due ho usato l'unione per eseguire una mia query che però doveva avere come risultato
-		lo stesso numero di colonne di quella prima, cioè 6, in particolare sono andato a vedere tutte le colonne dell'information schema, ho visto che esisteva una colonna di nome "flag" e ho richiesto la query per vederla.
+web2_01 -> livello 1 è stato sufficiente sfruttare il non controllo sulla variabile inserita per generare un OR TRUE sulla condizione; per il livello 2 ho 
+		usato l'unione per eseguire una mia query che però doveva avere come risultato lo stesso numero di colonne di quella prima, cioè 6, in 
+		particolare sono andato a vedere tutte le colonne dell'information schema, ho visto che esisteva una colonna di nome "flag" e ho richiesto 
+		la query per vederla. Livello 3 risolto come web_19.
 
 web_11 -> si fa una richiesta post all'url del login per inviare username e password nel body con json. Si ottiene, quindi, un token di sessione che useremo in tutte le prossime richieste. A questo punto si ottiene il primo CSRF e si
 		invia una richiesta post all'url di get_piece per prendere la prima parte della flag, quindi dalla richiesta si estrae dal json sia la parte della chiave che il token CSRF per la successiva richiesta; ripetendo questo
@@ -54,3 +56,6 @@ web_15 -> estraggo il contenuto della pagine, poi rilevo tutti i tag <script> e 
 
 web_16 -> in un vettore di url metto l'url della prima pagina, poi per tutti gli url estraggo dalla pagina tutti gli <a>, quindi aggiungo i link alla lista di url. Tengo una lista degli url visitati per non cadere in ricorsioni, e
 		prima di visitare controllo se lo ho già visitato. Per ogni pagina controllo prima se è presente la flag tramite la regular expression; in caso negativo passo a vedere tutte le sue sottopagine.
+
+web_19 -> usato query injection per confrontare carattere per carattere la flag, fino ad ottenerla tutta. Ci veniva detto di cercarla nella colonna asecret
+		della tabella secret.
