@@ -1,7 +1,24 @@
-readelf -> -a, -e, -s
-gdb ->
-nm ->
-objdump -> -d -M intel
+readelf -> per analizzare con accuratezza le sezioni del file ELF.
+	con l'opzione -h mostra l'intestazione del file; 
+	con l'opzione -e mostra tutte le intestazioni, quelle del file, quelle del programma e quelle delle sezioni; 
+	con l'opzione -s mostra la tabella dei simboli, similmente a nm;
+	con l'opzione -a mostra tutto.
+gdb -> per controllare passo per passo l'esecuzione di un programma. Usando i breakpoint e altri comandi si riesce a correggere errori nel programma
+	e intervenire durante la sua esecuzione. Con l'opzione --args all'avvio posso specificare gli argomenti, che sono primo fra tutti il nome del file
+	da analizzare, e poi i vari argv[1], argv[2], ecc.
+nm -> va dritto alla system table, mostrando nomi di funzioni e variabili definite nel codice, con la relativa area di memoria. Se l'ELF è stripped, 
+	probabilmente non vede nulla. Si può usare l'opzione -D per vedere la tabella dei simboli dinamici, ossia tutto ciò che rimane dopo uno strip,
+	simboli per comunicare con le librerie esterne.
+objdump -> con l'opzione -d per disassemblare l'ELF e convertirlo in istruzioni ASSEMBLY (potrebbe disassemblare qualsiasi file, anche .exe)
+	con l'opzione -M intel per mostrare la risposta con sintassi Intel e non con la predefinita AT&T.
+	con l'opzione -h per visualizzare le sezioni dell'ELF.
+	con l'opzione -j sezione  per visualizzare una specifica sezione (insieme a -d)
+strings -> mostra tutte le sequenze di almeno 4 caratteri stampabili consecutivi
+file -> indica il tipo di file, l'architettura su cui può essere eseguito, come sono linkate le librerie, l'eventuale interprete e se è stripper o no (se è
+	stripped allora è stato eseguito il comando strip)
+strip -> per eliminare tutti i dettagli aggiuntivi, come commenti, nomi delle funzioni, simboli di debug, nomi delle variabili globali (se non sono
+	necessari per il linking dinamico). Si usa per risparmiare spazio ed offuscare leggermente il codice (contro attacchi con gdb e objdump).
+ldd -> per mostrare le librerie dynamically linked
 
 
 
